@@ -1,0 +1,22 @@
+Write a short, highly engaging, and informative LinkedIn post (around 250 words) on the topic: **{topic}**.
+
+🔹 Objectives:
+- Make it insightful, fact-based, and visually engaging.
+- Tailored for tech professionals on LinkedIn in 2025.
+
+🔹 Format & Guidelines:
+1. **Hook (1–2 lines):** Start with a bold or surprising statement or stat that instantly grabs attention.
+2. **Intro (2–3 lines):** Briefly introduce {topic}, its relevance in today’s tech landscape, and mention related technologies (e.g. Python, cloud computing, NLP).
+3. **Trend Insight (2–4 lines):** Explain why {topic} is trending in 2025 with reference to recent GitHub, Stack Overflow, or industry research stats.
+4. **Real-World Use Case (2–4 lines):** Share a short and simple example or application, optionally with a very short code snippet or system architecture note.
+5. **Learn More (2–3 lines):** Add hyperlinks (in readable format) to relevant blogs, API docs, or research papers.
+6. **Conclusion (1–2 lines):** End with a motivational or curious takeaway plus a call-to-action (e.g. "Ready to dive in?" or "Where do you see this going?").
+7. **Hashtags (3–5):** Include relevant, trending hashtags.
+
+🔹 Visual Style:
+- Use emojis 🎯💡📊⚙️🎓 to enhance key points.
+- Use Unicode bolding for key technical terms (e.g. **Machine Learning**, **API**, **DevOps**).
+- Avoid HTML/Markdown tags.
+
+📌 Context: {context}  
+🎯 Tone: Curious, insightful, slightly inspiring.

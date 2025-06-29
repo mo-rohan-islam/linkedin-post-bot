@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "8d001259-07c0-4f6d-8fa0-74a16dd9e82c",
+		"name": "LinkedIn-Post-Bot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14261025"
+	},
+	"item": [
+		{
+			"name": "Sign In with LinkedIn",
+			"item": [
+				{
+					"name": "Get Auth code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867p69sztaj7pq&redirect_uri=http://localhost:8501&scope=w_member_social",
+							"protocol": "https",
+							"host": [
+								"www",
+								"linkedin",
+								"com"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"authorization"
+							],
+							"query": [
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "client_id",
+									"value": "867p69sztaj7pq"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8501"
+								},
+								{
+									"key": "state",
+									"value": "{{$randomUUID}}",
+									"disabled": true
+								},
+								{
+									"key": "scope",
+									"value": "w_member_social"
+								},
+								{
+									"key": "scope",
+									"value": "profile%20email%20openid%20w_member_social",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Copy the URL, paste in your browser and login with your credentials."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Access token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the access_token in an environment variable\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"access-token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "AQQe3rpY1ZuTWU4j9PTUPj4HtctbOaGh-B2nadP8fq96iVsX-Nqet7l7t5L3HKygIbTG8UJfnwA6fDqe4kjhCRbA3h1Y0f_dRzYdOzyJK0_6xJ8MEgdkAvbUNd7cctfRlxMVinMgb2SDzxA5a3uiygHduqRPhNgFplq4eTy435xMnnduK5WNpYithDwtaJmElN6zU1oYOIpwO4rQBqA",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{vault:linkedin-client-id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{vault:linkedin-client-secret}}",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8501",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://www.linkedin.com/oauth/v2/accessToken",
+							"protocol": "https",
+							"host": [
+								"www",
+								"linkedin",
+								"com"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"accessToken"
+							]
+						},
+						"description": "Generated from cURL: curl --location --request POST 'https://www.linkedin.com/oauth/v2/accessToken' \\\r\n--header 'Content-Type: application/x-www-form-urlencoded' \\\r\n--data-urlencode 'grant_type=authorization_code' \\\r\n--data-urlencode 'code={authorization_code_from_step2_response}' \\\r\n--data-urlencode 'client_id={your_client_id}' \\\r\n--data-urlencode 'client_secret={your_client_secret}' \\\r\n--data-urlencode 'redirect_uri={your_callback_url}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.linkedin.com/v2/userinfo",
+							"protocol": "https",
+							"host": [
+								"api",
+								"linkedin",
+								"com"
+							],
+							"path": [
+								"v2",
+								"userinfo"
+							]
+						},
+						"description": "Requires openid, profile and email scopes in the access token for this API to work properly."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "access-token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

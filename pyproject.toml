@@ -2,7 +2,7 @@
 name = "linkedin-post-bot"
 version = "0.1.0"
 description = "Generate a LinkedIn post of about 250 words for a given topic and context"
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.9.7 || >3.9.7"
 dependencies = [
     "pyperclip",
     "python-dotenv>=1.1.1",

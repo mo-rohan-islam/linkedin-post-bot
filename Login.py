@@ -38,12 +38,7 @@ else:
             f'<a href="{login_url}" target="_self">🔗 Click here to Login with LinkedIn</a>',
             unsafe_allow_html=True
         )
-    else:   # TODO: Code not being used. Fix the logic
-        st.success("✅ Already authenticated with LinkedIn!")
-        # st.markdown("Continue to [Generate Posts ➡️](../App.py)")
-        # st.markdown("Continue to [Generate Posts ➡️](http://localhost:8501/App)")
-        st.markdown(
-            '<a href="http://localhost:8501/App" target="_self">Continue to [Generate Posts ➡️</a>',
-            unsafe_allow_html=True
-        )
+    else:
+        # Already authenticated
+        st.switch_page("pages/App.py")
 

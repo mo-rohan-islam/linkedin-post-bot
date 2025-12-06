@@ -10,15 +10,15 @@ from linkedin_api import post_to_linkedin
 # load_dotenv(dotenv_path="./.env")
 logger = get_logger(__name__)
 
-# # Check login state
-# if "access_token" not in st.session_state or not st.session_state["access_token"]:
-#     st.set_page_config(page_title="LinkedIn Post Generator", layout="centered")
-#     st.title("📢 AI-Generated LinkedIn Post")
-#     st.warning("🔒 Please log in via LinkedIn first.")
-#     st.switch_page("pages/Login.py")
+st.set_page_config(page_title="LinkedIn Post Generator", layout="centered")
+
+# Check login state
+if "access_token" not in st.session_state or not st.session_state["access_token"]:
+    st.title("📢 AI-Generated LinkedIn Post")
+    st.warning("🔒 Please log in via LinkedIn first.")
+    st.switch_page("Login.py")
 
 # Authenticated view
-st.set_page_config(page_title="LinkedIn Post Generator", layout="centered")
 st.title("📢 AI-Generated LinkedIn Post")
 
 topic = st.text_input("Enter the trending topic", placeholder="e.g., LangChain, Vector Databases")
@@ -38,12 +38,14 @@ if st.button("Generate LinkedIn Post", use_container_width=True):
 
 # Display generated post and action buttons only if post exists
 if "post_text" in st.session_state and st.session_state["post_text"]:
-    text = st.text_area("Generated LinkedIn Post", value=st.session_state["post_text"], height=350)
+    # Use key="post_text" to bind to session state and allow editing
+    st.text_area("Generated LinkedIn Post", key="post_text", height=350)
 
     # Create 2 columns for side-by-side buttons
     col1, col2 = st.columns([1, 1])
     with col1:
-        st.button("📋 Copy to clipboard", use_container_width=True, on_click=pyperclip.copy(text))
+        # Use lambda to copy the current value from session state
+        st.button("📋 Copy to clipboard", use_container_width=True, on_click=lambda: pyperclip.copy(st.session_state["post_text"]))
     with col2:
         if st.button("🚀 Post to LinkedIn", use_container_width=True):
             success, message = post_to_linkedin(
